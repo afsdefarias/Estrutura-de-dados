@@ -23,7 +23,7 @@ int main(){
         scanf("%d", &menu);
         switch (menu){
             case 1:
-                if(minhalista->LSE !=NULL ){
+                if(minhalista !=NULL ){
                     minhalista = startLista();
                 }else{
                     printf("\nLista ja existe.\n");

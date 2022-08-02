@@ -1,4 +1,19 @@
-/snap/clion/198/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/198/bin/ninja/linux/ninja -G Ninja -S "/home/andre/Documentos/Estrutura de Dados/ListaDeMusica" -B "/home/andre/Documentos/Estrutura de Dados/ListaDeMusica/cmake-build-debug"
+/snap/clion/203/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/203/bin/ninja/linux/ninja -G Ninja -S "/home/andre/Documentos/Estrutura de Dados/ListaDeMusica" -B "/home/andre/Documentos/Estrutura de Dados/ListaDeMusica/cmake-build-debug"
+-- The C compiler identification is GNU 11.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
 -- Configuring done
--- Generating done
--- Build files have been written to: /home/andre/Documentos/Estrutura de Dados/ListaDeMusica/cmake-build-debug
+CMake Error at CMakeLists.txt:6 (add_executable):
+  Cannot find source file:
+
+    main.c
+
+
+CMake Error at CMakeLists.txt:6 (add_executable):
+  No SOURCES given to target: ListaDeMusica
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.

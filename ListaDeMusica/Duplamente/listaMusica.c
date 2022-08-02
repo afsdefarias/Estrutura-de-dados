@@ -83,43 +83,27 @@ struct desc_LSE * removeMusica(struct desc_LSE *base, int posicao){
     struct nodo * aux = NULL;
     struct nodo * atua = NULL;
 
-    if((base->tamanho==0) && (base->LSE==NULL)){
+    if((base->tamanho==0) && (base->LSE==NULL)) {
         printf("A lista esta vazia.\n");
         return base;
-    }else{
-        if(posicao==1){
-            base->LSE = base->LSE->prox;
-            base->LSE->prox->ant = NULL;
-            base->tamanho--;
-            return base;
-        }else{
-            if(posicao==base->tamanho){
-                aux = base->LSE;
-                while (aux->prox != NULL){
-                    atua = aux;
-                    aux = aux->prox;
-                }
-                atua->prox->ant = NULL;
-                atua->prox = NULL;
-                base->tamanho--;
-                return base;
-            }else{
-                if(posicao < base->tamanho){
-                    int anda = 2; // dois por 1 já é a primeiro if. 2 siria o ultimo de 0 a 2 então a logica e depois do 2
-                    aux = base->LSE;
-                    while (anda != posicao){
-                        aux = aux->prox;
-                        anda++;
-                    }
-                    aux->ant = aux->prox->ant;
-                    aux->prox = aux->prox->prox;
-                    base->tamanho--;
-                    return base;
-                }else {
-                    printf("Nao existe essa posicao.\n");
-                }
-            }
+    }if(base->tamanho==1){
+        base->LSE = NULL;
+        base->tamanho--;
+        return base;
+    }if(base->tamanho>=posicao){
+        int anda = 2;
+        aux = base->LSE;
+        while (anda != posicao){
+            aux = aux->prox;
+            anda++;
         }
+        aux->ant = aux->prox->ant;
+        aux->prox = aux->prox->prox;
+        base->tamanho--;
+        free(aux);
+        return base;
+    }else{
+        printf("Nao existe essa posicao.\n");
     }
     return base;
 }

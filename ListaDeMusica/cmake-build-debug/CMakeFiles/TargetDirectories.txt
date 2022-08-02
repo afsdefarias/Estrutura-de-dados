@@ -1,3 +1,0 @@
-/home/andre/Documentos/Estrutura de Dados/ListaDeMusica/cmake-build-debug/CMakeFiles/ListaDeMusica.dir
-/home/andre/Documentos/Estrutura de Dados/ListaDeMusica/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/andre/Documentos/Estrutura de Dados/ListaDeMusica/cmake-build-debug/CMakeFiles/rebuild_cache.dir
