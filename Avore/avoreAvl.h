@@ -16,5 +16,6 @@ struct desc_avl{
 };
 
 struct desc_avl * CreateAVL(void);
-struct nodo * inNodo(void);
-struct nodo * noNovo(struct desc_avl * inAVL, struct nodo * inNodo);
+struct nodo * inNodo(int key);
+struct desc_avl * nodoADD(struct desc_avl * vaso, struct nodo * folha);
+void bn(void);
