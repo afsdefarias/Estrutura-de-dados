@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void quebraFrase(char *frase,int n);
+void quebraFrase(char *frase, int n);
 
 int main(){
 	

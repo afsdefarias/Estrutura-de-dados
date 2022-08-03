@@ -7,11 +7,11 @@ Matricula: 2110102624
 #include <string.h>
 #include "spotyfomAndre.h"
 
-void carregaArquivoMusica(void);
-void addMusicaPorLinha(char *frase, int n);
+struct desc_LSE * carregaArquivoMusica(struct desc_LSE * minhalista);
 
 int main(){
-    int menu;
+    struct desc_LSE *minhalista;
+    int menu, codigo, posicao;
 
     while(menu!=6){
         printf("\n###### Menu ##########\n1 - Carrega Lista \n2 – Insere\n3 – Remove \n4 – Consulta\n5 - Imprime\n6 - Sair\n : ");
@@ -19,44 +19,39 @@ int main(){
         scanf("%d", &menu);
         switch (menu){
             case 1:
-                carregaArquivoMusica();
+                minhalista = carregaArquivoMusica(minhalista);
                 break;
             case 2:
                 break;
             case 3:
+                printf("Deleta a posicao: ");
+                scanf("%d", &posicao);
+                minhalista = removeMusica(minhalista, posicao);
+                printf("\n");
+                imprimeLista(minhalista);
                 break;
             case 4:
+                printf("Codigo da Musica: ");
+                scanf("%d", &codigo);
+                busca(minhalista, codigo);
                 break;
             case 5:
+                imprimeLista(minhalista);
                 break;
             case 6:
                 menu = 6;
+                minhalista = limpalista(minhalista);
                 break;
         }
     }
     return 0;
 }
-void addMusicaPorLinha(char *frase, int n) {
-    struct desc_LSE *minhalista;
+struct desc_LSE * carregaArquivoMusica(struct desc_LSE * minhalista) {
+
     struct musica *inMusica;
     struct nodo *noMusica;
 
-    char titulo[256];
-    char artista[256];
-    char letra[256];
-    int codigo;
-
-    strcpy(artista, strtok(frase,";"));
-    codigo = atoi(strtok(NULL,";"));
-    strcpy(titulo, strtok(NULL,";"));
-    strcpy(letra, strtok(NULL,";"));
-    printf("%s - %s - %s - %i\n", titulo, artista, letra, codigo, 0);
-//    inMusica = inMuss(titulo, artista, letra, codigo, 0);
-//    noMusica = inNodo(inMusica);
-//    minhalista = novaMusica(minhalista, noMusica, n);
-}
-
-void carregaArquivoMusica(void) {
+    minhalista = startLista();
     FILE * arquivoEntrada;
     arquivoEntrada = fopen("musicas.txt", "r");
     if (arquivoEntrada ==NULL){
@@ -67,9 +62,14 @@ void carregaArquivoMusica(void) {
     fscanf(arquivoEntrada, "%d", &tamanhoAcervo);
     printf("tamanho do acervo sera %d\n", tamanhoAcervo);
     //aloca a struct musica com o tamanho do acervo
+
+    char titulo[256];
+    char artista[256];
+    char letra[256];
+    int codigo, p;
     char caractere;
     char frase[256];
-    int n=0;
+    int n=p=0;
 
     while((caractere = fgetc(arquivoEntrada))!= EOF){
         if(caractere != '\n'){ //caractere diferente de \n guarda em frase
@@ -78,11 +78,17 @@ void carregaArquivoMusica(void) {
         }
         else{//encontrou \n
             if(n > 0){
-                frase[n]='\0';
-                addMusicaPorLinha(frase,n);
-            }
+                strcpy(artista, strtok(frase,";"));
+                codigo = atoi(strtok(NULL,";"));
+                strcpy(titulo, strtok(NULL,";"));
+                strcpy(letra, strtok(NULL,";"));
+                inMusica = inMuss(titulo, artista, letra, codigo, 0);
+                noMusica = inNodo(inMusica);
+                minhalista = novaMusica(minhalista, noMusica, p);
+            }p++;
             n=0;
             frase[n]='\0';
         }
     }
+    return minhalista;
 }
