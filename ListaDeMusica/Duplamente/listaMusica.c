@@ -116,6 +116,8 @@ struct desc_LSE * removeMusica(struct desc_LSE *base, int posicao){
                 }
                 aux->ant = aux->prox->ant;
                 aux->prox = aux->prox->prox;
+                base->tamanho--;
+                return base;
             } else {
                 printf("Nao existe essa posicao.\n");
             }
