@@ -11,7 +11,16 @@ struct desc_LSE * carregaArquivoMusica(struct desc_LSE * minhalista);
 
 int main(){
     struct desc_LSE *minhalista;
+    struct musica *inMusica;
+    struct nodo *noMusica;
+
     int menu, codigo, posicao;
+
+    char titulo[256];
+    char artista[256];
+    char letra[256];
+
+    menu = posicao = 0;
 
     while(menu!=6){
         printf("\n###### Menu ##########\n1 - Carrega Lista \n2 – Insere\n3 – Remove \n4 – Consulta\n5 - Imprime\n6 - Sair\n : ");
@@ -22,6 +31,24 @@ int main(){
                 minhalista = carregaArquivoMusica(minhalista);
                 break;
             case 2:
+                printf("Codigo da musica: ");
+                scanf("%i", &codigo);
+                printf("Nome da musica: ");
+                setbuf(stdin, NULL);
+                scanf("%[^\n]s", titulo);
+                printf("Nome do artista: ");
+                setbuf(stdin, NULL);
+                scanf("%[^\n]s", artista);
+                printf("Trecho da musica: ");
+                setbuf(stdin, NULL);
+                scanf("%[^\n]s", letra);
+
+                inMusica = inMuss(titulo,artista,letra,codigo,0);
+                noMusica = inNodo(inMusica);
+                printf("\n");
+                printf("Posicao: ");
+                scanf("%d", &posicao);
+                minhalista = novaMusica( minhalista, noMusica, posicao);
                 break;
             case 3:
                 printf("Deleta a posicao: ");

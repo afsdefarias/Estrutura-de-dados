@@ -1,0 +1,3 @@
+/home/andre/Documentos/Estrutura de Dados/spotyfom/cmake-build-debug/CMakeFiles/spotyfom.dir
+/home/andre/Documentos/Estrutura de Dados/spotyfom/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/andre/Documentos/Estrutura de Dados/spotyfom/cmake-build-debug/CMakeFiles/rebuild_cache.dir

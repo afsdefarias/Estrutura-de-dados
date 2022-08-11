@@ -26,22 +26,32 @@ struct nodo * inNodo(int key){
     galho->fator = 0;
     return galho;
 }
-struct desc_avl * nodoADD(struct desc_avl * vaso, struct nodo * folha){
-    if(vaso->raiz==NULL && vaso->tamanho==0){ // Não tem raiz
-        vaso->raiz = folha;
+struct nodo * nodoADD(struct nodo * raiz, struct nodo * folha, struct nodo *pai){
+    if(raiz==NULL){ // Não tem raiz
         bn();
-        printf("Raiz criada. (%i)\n", vaso->raiz->chave);
-        return vaso;
-    }else if(folha->chave > 10){
+        folha->pai = pai;
+        return folha;
+    }else if(folha->chave > raiz->chave){
         bn();
         printf("Chave direita\n");
-        return vaso;
-    }else if(folha->chave < 10) {
+        raiz->dir = nodoADD(raiz->dir,folha, raiz);
+        return raiz;
+    }else if(folha->chave < raiz->chave) {
         bn();
         printf("Chave Esquerda\n");
-        return vaso;
+        raiz->esq = nodoADD(raiz->esq, folha, raiz);
+        return raiz;
     }else{
         bn();
         printf("Chave Igual\n");
+    }
+}
+void preOrdem(struct nodo * raiz){
+    if(raiz == NULL) return;
+    else{
+        printf("%d ", raiz->chave);
+        preOrdem(raiz->esq);
+        preOrdem(raiz->dir);
+        return;
     }
 }

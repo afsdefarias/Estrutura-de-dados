@@ -90,20 +90,36 @@ struct desc_LSE * removeMusica(struct desc_LSE *base, int posicao){
         base->LSE = NULL;
         base->tamanho--;
         return base;
-    }if(base->tamanho>=posicao){
-        int anda = 2;
-        aux = base->LSE;
-        while (anda != posicao){
-            aux = aux->prox;
-            anda++;
+    }else {
+        if (posicao == base->tamanho) {
+            aux = base->LSE;
+            while (aux->prox != NULL) {
+                atua = aux;
+                aux = aux->prox;
+            }
+            atua->prox = NULL;
+            base->tamanho--;
+            return base;
+        } else {
+            if (posicao == 1){
+                base->LSE = base->LSE->prox;
+                base->tamanho--;
+                return base;
+            }
+            if (posicao < base->tamanho) {
+                aux = base->LSE;
+                int anda = 2;
+                while (anda != posicao) {
+                    aux = aux->prox;
+                    printf("%d\n", anda);
+                    anda++;
+                }
+                aux->ant = aux->prox->ant;
+                aux->prox = aux->prox->prox;
+            } else {
+                printf("Nao existe essa posicao.\n");
+            }
         }
-        aux->ant = aux->prox->ant;
-        aux->prox = aux->prox->prox;
-        base->tamanho--;
-        free(aux);
-        return base;
-    }else{
-        printf("Nao existe essa posicao.\n");
     }
     return base;
 }

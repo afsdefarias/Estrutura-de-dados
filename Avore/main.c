@@ -25,7 +25,10 @@ int main(){
                 printf("Chave: ");
                 scanf("%i", &key);
                 folha = inNodo(key);
-                minhaAvore = nodoADD(minhaAvore, folha);
+                minhaAvore->raiz = nodoADD(minhaAvore->raiz, folha, NULL);
+                break;
+            case 4:
+                preOrdem(minhaAvore->raiz);
                 break;
             case 5:
                 menu = 5;
