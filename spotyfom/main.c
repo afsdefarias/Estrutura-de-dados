@@ -9,58 +9,61 @@ Matricula: 2110102624
 
 struct desc_LSE * carregaArquivoMusica(struct desc_LSE * minhalista);
 
+
 int main(){
-    struct desc_LSE *minhalista;
-    struct musica *inMusica;
-    struct nodo *noMusica;
-
-    int menu, codigo, posicao;
-
     char titulo[256];
     char artista[256];
-    char letra[256];
 
-    menu = posicao = 0;
+    struct desc_LSE *minhalista;
+    struct desc_queue * minhaPlayPilha;
 
+    int menu, sbmenu, codigo, posicao;
+    menu = posicao = sbmenu = 0;
+    minhalista = carregaArquivoMusica(minhalista); // Carrega Musica
+    minhaPlayPilha = criaDescQueue(void);
     while(menu!=6){
-        printf("\n###### Menu ##########\n1 - Carrega Lista \n2 – Insere\n3 – Remove \n4 – Consulta\n5 - Imprime\n6 - Sair\n : ");
+        printf("\n###### Menu ##########\n1 - Execução \n2 – Playlist\n3 – Busca \n4 – Relatório\n5 - Impressão\n6 - Sair\n : ");
         setbuf(stdin, NULL);
         scanf("%d", &menu);
         switch (menu){
             case 1:
-                minhalista = carregaArquivoMusica(minhalista);
+
                 break;
             case 2:
-                printf("Codigo da musica: ");
-                scanf("%i", &codigo);
-                printf("Nome da musica: ");
-                setbuf(stdin, NULL);
-                scanf("%[^\n]s", titulo);
-                printf("Nome do artista: ");
-                setbuf(stdin, NULL);
-                scanf("%[^\n]s", artista);
-                printf("Trecho da musica: ");
-                setbuf(stdin, NULL);
-                scanf("%[^\n]s", letra);
 
-                inMusica = inMuss(titulo,artista,letra,codigo,0);
-                noMusica = inNodo(inMusica);
-                printf("\n");
-                printf("Posicao: ");
-                scanf("%d", &posicao);
-                minhalista = novaMusica( minhalista, noMusica, posicao);
                 break;
             case 3:
+                printf("Pesquisar\n 1 - Codigo | 2 - Titulo | 3 - Artosta \n:");
+                setbuf(stdin, NULL);
+                scanf("%d", &sbmenu);
+
+                switch (sbmenu) {
+                    case 1:
+                        printf("Codigo da Musica: ");
+                        setbuf(stdin, NULL);
+                        scanf("%d", &codigo);
+                        buscaPCodigo(minhalista, codigo);
+                        break;
+                    case 2:
+                        printf("Titulo da Musica: \n");
+                        setbuf(stdin, NULL);
+                        scanf("%[^\n]s", titulo);
+                        buscaPtitulo(minhalista, titulo);
+                        break;
+                    case 3:
+                        printf("Artista da Musica: \n");
+                        setbuf(stdin, NULL);
+                        scanf("%[^\n]s", artista);
+                        buscaPArtista(minhalista, artista);
+                        break;
+                }
+                break;
+            case 4:
                 printf("Deleta a posicao: ");
                 scanf("%d", &posicao);
                 minhalista = removeMusica(minhalista, posicao);
                 printf("\n");
                 imprimeLista(minhalista);
-                break;
-            case 4:
-                printf("Codigo da Musica: ");
-                scanf("%d", &codigo);
-                busca(minhalista, codigo);
                 break;
             case 5:
                 imprimeLista(minhalista);
@@ -78,7 +81,7 @@ struct desc_LSE * carregaArquivoMusica(struct desc_LSE * minhalista) {
     struct musica *inMusica;
     struct nodo *noMusica;
 
-    minhalista = startLista();
+    minhalista = startLista(); // Cria lista
     FILE * arquivoEntrada;
     arquivoEntrada = fopen("musicas.txt", "r");
     if (arquivoEntrada ==NULL){
@@ -87,7 +90,7 @@ struct desc_LSE * carregaArquivoMusica(struct desc_LSE * minhalista) {
     }
     int tamanhoAcervo;
     fscanf(arquivoEntrada, "%d", &tamanhoAcervo);
-    printf("tamanho do acervo sera %d\n", tamanhoAcervo);
+    printf("\nO acervo consta com %d musicas\n", tamanhoAcervo);
     //aloca a struct musica com o tamanho do acervo
 
     char titulo[256];

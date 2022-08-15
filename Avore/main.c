@@ -12,8 +12,8 @@ int main(){
 
     int chave, menu,key;
     menu = 0;
-    while(menu!=5) {
-        printf("\n###### Menu ##########\n1 - CreateAVL \n2 – REMOVE\n3 – INSERT \n4 – IMPRIME\n5 - Sair\n : ");
+    while(menu!=6) {
+        printf("\n###### Menu ##########\n1 - CreateAVL \n2 – REMOVE\n3 – INSERT \n4 – Pre-Order\n5 – Pos-Order\n6 - Sair\n : ");
         setbuf(stdin, NULL);
         scanf("%d", &menu);
         switch (menu) {
@@ -31,7 +31,10 @@ int main(){
                 preOrdem(minhaAvore->raiz);
                 break;
             case 5:
-                menu = 5;
+                posOrdem(minhaAvore->raiz);
+                break;
+            case 6:
+                menu = 6;
                 break;
         }
     }

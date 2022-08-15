@@ -34,7 +34,7 @@ struct nodo * nodoADD(struct nodo * raiz, struct nodo * folha, struct nodo *pai)
     }else if(folha->chave > raiz->chave){
         bn();
         printf("Chave direita\n");
-        raiz->dir = nodoADD(raiz->dir,folha, raiz);
+        raiz->dir = nodoADD(raiz->dir, folha, raiz);
         return raiz;
     }else if(folha->chave < raiz->chave) {
         bn();
@@ -52,6 +52,15 @@ void preOrdem(struct nodo * raiz){
         printf("%d ", raiz->chave);
         preOrdem(raiz->esq);
         preOrdem(raiz->dir);
+        return;
+    }
+}
+void posOrdem(struct nodo * raiz){
+    if(raiz == NULL) return;
+    else{
+        preOrdem(raiz->esq);
+        preOrdem(raiz->dir);
+        printf("%d ", raiz->chave);
         return;
     }
 }

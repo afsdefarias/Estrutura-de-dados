@@ -11,7 +11,6 @@ struct desc_LSE * startLista(void){
     struct desc_LSE * base=(struct desc_LSE *)malloc(sizeof(struct desc_LSE));
     base->tamanho = 0;
     base->LSE=NULL;
-    printf("\n\nLista criada com sucesso.\n");
     return base;
 }
 
@@ -74,82 +73,117 @@ struct desc_LSE * novaMusica(struct desc_LSE *base, struct nodo *noMusica, int p
         }
     }
 }
-struct desc_LSE * removeMusica(struct desc_LSE *base, int posicao){
-    struct nodo * aux = NULL;
-    struct nodo * atua = NULL;
-
-    if((base->tamanho==0) && (base->LSE==NULL)){
-        printf("A lista esta vazia.\n");
-        return base;
-    }else{
-        if(posicao==1){
-            base->LSE = base->LSE->prox;
-            base->tamanho--;
-            return base;
-        }else{
-            if(posicao==base->tamanho){
-                aux = base->LSE;
-                while (aux->prox != NULL){
-                    atua = aux;
-                    aux = aux->prox;
-                }
-                atua->prox = NULL;
-                base->tamanho--;
-                return base;
-            }else{
-                if(posicao < base->tamanho){
-                    int anda = 2; // dois por 1 já é a primeiro if. 2 siria o ultimo de 0 a 2 então a logica e depois do 2
-                    aux = base->LSE;
-                    while (anda != posicao){
-                        aux = aux->prox;
-                        anda++;
-                    }
-                    aux->prox = aux->prox->prox;
-                    base->tamanho--;
-                    return base;
-                }else {
-                    printf("Nao existe essa posicao.\n");
-                }
-            }
-        }
-    }
-    return base;
+// ################################# PILHA ###########################################
+struct  desc_queue * criaDescQueue(void){
+    struct desc_queue * basePilha=(struct desc_queue *)malloc(sizeof(struct desc_queue));
+    basePilha->tamanho = 0;
+    basePilha->head = NULL;
+    basePilha->tail = NULL;
+    return basePilha;
 }
-void * busca(struct desc_LSE *base, int codigo){
-    printf("titulo - artista - letra - codigo\n");
+// ###################################################################################
+void * buscaPtitulo(struct desc_LSE *base, char *titu){
+    int pagina = 0;
+    int posi = 0;
+    printf("|| CODIGO | TITULO | ARTISTA | TRECHO ||\n");
     if((base->tamanho==0) && (base->LSE==NULL)){
         printf("A lista esta vazia.\n");
         return base;
     }
     struct nodo *aux = base->LSE;
-    while (aux != NULL){
-        if (aux->info->codigo == codigo){
+    do{
+        printf("%s %d %s %d\n", aux->info->titulo, strlen(aux->info->titulo), titu, strlen(titu));
+        if (strcmp(aux->info->titulo, titu)==0) {
             imprimeMusica(aux);
+            if (pagina == 250) {
+                setbuf(stdin, NULL);
+                printf("--------------------------------------------------------------------------------------------------\n");
+                printf("\n\n\t (%i) Pressione qualquer tecla para continuar \n\n", posi = posi + 250);
+                getchar();
+                pagina = 0;
+            }
+            pagina++;
         }
         aux = aux->prox;
+    }while (aux != NULL);
+    return 0;
+}
+void * buscaPArtista(struct desc_LSE *base, char *art){
+    int pagina = 0;
+    int posi = 0;
+    printf("|| CODIGO | TITULO | ARTISTA | TRECHO ||\n");
+    if((base->tamanho==0) && (base->LSE==NULL)){
+        printf("A lista esta vazia.\n");
+        return base;
     }
+    struct nodo *aux = base->LSE;
+    do{
+        if (strcmp(aux->info->artista, art)==0) {
+            imprimeMusica(aux);
+            if (pagina == 250) {
+                setbuf(stdin, NULL);
+                printf("--------------------------------------------------------------------------------------------------\n");
+                printf("\n\n\t (%i) Pressione qualquer tecla para continuar \n\n", posi = posi + 250);
+                getchar();
+                pagina = 0;
+            }
+            pagina++;
+        }
+        aux = aux->prox;
+    }while (aux != NULL);
+    return 0;
+}
+void * buscaPCodigo(struct desc_LSE *base, int codigo){
+    int pagina = 0;
+    int posi = 0;
+    printf("|| CODIGO | TITULO | ARTISTA | TRECHO ||\n");
+    if((base->tamanho==0) && (base->LSE==NULL)){
+        printf("A lista esta vazia.\n");
+        return base;
+    }
+    struct nodo *aux = base->LSE;
+    do{
+        if (aux->info->codigo == codigo) {
+            imprimeMusica(aux);
+            if (pagina == 250) {
+                setbuf(stdin, NULL);
+                printf("--------------------------------------------------------------------------------------------------\n");
+                printf("\n\n\t (%i) Pressione qualquer tecla para continuar \n\n", posi = posi + 250);
+                getchar();
+                pagina = 0;
+            }
+            pagina++;
+        }
+        aux = aux->prox;
+    }while (aux != NULL);
     return 0;
 }
 
 void * imprimeLista(struct desc_LSE *base){
-    printf("titulo - artista - letra - codigo\n");
+    int pagina = 0;
+    int posi = 0;
+    printf("|| CODIGO | TITULO | ARTISTA | TRECHO ||\n");
     if((base->tamanho==0) && (base->LSE==NULL)){
         printf("A lista esta vazia.\n");
         return base;
     }
     struct nodo *aux = base->LSE;
-    while (aux != NULL){
+    do{
         imprimeMusica(aux);
+        if(pagina==250) {
+            setbuf(stdin, NULL);
+            printf("--------------------------------------------------------------------------------------------------\n");
+            printf("\n\n\t (%i) Pressione qualquer tecla para continuar \n\n", posi=posi+250);
+            getchar();
+            pagina = 0;
+        }pagina++;
         aux = aux->prox;
-    }
+    }while (aux != NULL);
     return 0;
 }
 void * imprimeMusica(struct nodo *aux){
-    printf("%s - ", aux->info->titulo);
-    printf("%s - ", aux->info->artista);
-    printf("%s - ", aux->info->letra);
-    printf("%d - ", aux->info->codigo);
-    printf("%d\n", aux->info->execucoes);
+    printf("--------------------------------------------------------------------------------------------------\n");
+    printf("|| %i | %s | %s | %s ||\n", aux->info->codigo, aux->info->titulo, aux->info->artista, aux->info->letra);
     return 0;
 }
 struct desc_LSE * limpalista(struct desc_LSE *base){
