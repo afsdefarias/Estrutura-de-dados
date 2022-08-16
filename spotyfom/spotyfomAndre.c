@@ -40,8 +40,10 @@ struct desc_Pilha * playPop(struct desc_LSE **base, struct desc_Pilha *basePilha
         while (basePilha->tamanho != 0) {
             atualizaExecucao(*base,basePilha->Pilha->info->codigo);
             imprimeMusica(basePilha->Pilha);
+            aux = basePilha-> Pilha;
             basePilha->Pilha = basePilha->Pilha->prox;
             basePilha->tamanho--;
+            free(aux);
         }
         return basePilha;
     }
@@ -340,6 +342,7 @@ void ** atualizaExecucao(struct desc_LSE *base, int codigo){
     while (anda != 0){
         if (aux->info->codigo == codigo) {
             aux->info->execucoes = aux->info->execucoes + 1;
+            return;
         }
         aux = aux->prox;
         anda--;
